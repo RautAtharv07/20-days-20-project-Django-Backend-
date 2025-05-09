@@ -7,7 +7,6 @@ class registration_form(UserCreationForm):
     class Meta:
         model = Userdata
         
-        
         fields =['username','first_name','last_name','email','phone_no','password1','password2']
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First name'}),
