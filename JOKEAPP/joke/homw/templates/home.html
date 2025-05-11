@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JokeSage</title>
+  <style>
+    body {
+      background: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    .note {
+      background: #fffec8;
+      border: 1px solid #e0d890;
+      width: 250px;
+      margin: 40px auto;
+      padding: 20px;
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+      transform: rotate(-2deg);
+      font-size: 16px;
+      text-align: left;
+      position: relative;
+    }
+    .note::before {
+      content: "";
+      width: 60px;
+      height: 20px;
+      background: #ffd966;
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #ffd966;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>😂 JokeSage</h1>
+
+  <div class="note" id="joke-note">
+    <div id="joke-setup"></div>
+    <div id="joke-punchline"></div>
+  </div>
+
+  <button onclick="loadJoke()">Next Joke</button>
+
+  <script>
+    async function loadJoke() {
+      const response = await fetch('/get-joke/');
+      const data = await response.json();
+
+      const setup = data.setup;
+      const punchline = data.punchline;
+
+      document.getElementById('joke-setup').innerHTML = setup ? `<strong>${setup}</strong><br><br>` : '';
+      document.getElementById('joke-punchline').innerText = punchline;
+    }
+
+    // Load first joke on page load
+    loadJoke();
+  </script>
+
+</body>
+</html>
